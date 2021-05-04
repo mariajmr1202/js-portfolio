@@ -2,13 +2,8 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-//Minimizar CSS
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
 //Variables de entorno
 const Dotenv = require("dotenv-webpack");
-//Para la limpieza de archivos repetidos
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   //Punto de entrada de la app
@@ -19,9 +14,9 @@ module.exports = {
     filename: "[name].[contenthash].js",
     //Para guardar las imagenes generadas en la carpeta assets
     assetModuleFilename: "assets/images/[hash][ext][query]",
-    //Para limpiar archivos innecesarios
-    clean: true,
   },
+  //Indicamos que estamos trabajando en modo desarrollo
+  mode: "development",
   resolve: {
     //Extensiones con la que trabajaremos en el proyecto: .js, react, etc
     extensions: [".js"],
@@ -100,12 +95,5 @@ module.exports = {
     }),
     //Variables de entorno
     new Dotenv(),
-    //Para la limpieza de archivos repetidos
-    new CleanWebpackPlugin(),
   ],
-  optimization: {
-    //Minimizar CSS
-    minimize: true,
-    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
-  },
 };
